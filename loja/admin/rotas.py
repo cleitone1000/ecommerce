@@ -12,4 +12,4 @@ def home():
 @app.route('/registrar')
 
 def registrar():
-    return render_template('admin/registrar.html', title="Registrar user")
+    return render_template('admin/registrar.html', title="Registrar")
