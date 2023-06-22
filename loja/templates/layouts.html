@@ -11,9 +11,9 @@
     <title>{title}</title>
   </head>
   <body>
-    { % block content % }
+    {% block content %}
 
-    { % endblock content % }
+    {% endblock %}
 
 
     <script src="{{url_for('static', filename='js/bundle.min.js')}}"></script>
