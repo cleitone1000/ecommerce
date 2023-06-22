@@ -1,7 +1,21 @@
 {% extends 'layouts.html'%}
 
 {% block content %}
-<div class="text-center h1">Registrar</div>
-<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Impedit sed odit eius cum, quas in autem unde ad deserunt, labore provident quidem vel nesciunt, omnis expedita assumenda maiores quos officiis?</p>
+
+<div class="text-center h1 text-success">Registrar</div>
+<div class="container">
+    {% from "_formularioajuda.html" import render_field %}
+<form method="post", enctype="multipart/form-data">
+        <div>
+        {{ render_field(form.username) }}
+        {{ render_field(form.user) }}
+        {{ render_field(form.email) }}
+        {{ render_field(form.password) }}
+        {{ render_field(form.confirm) }}
+        <input type="file" name="photo">
+        </div>
+    <p><input type=submit value="Registrar" class="bt-info"></p>
+</form>
+</div>
 
 {% endblock %}

@@ -1,7 +1,8 @@
-from flask import render_template, session, request, url_for
+from flask import render_template, session, request, url_for, flash
 
 from loja import app, db
 
+from .formulario import RegistrationForm
 
 @app.route('/')
 
@@ -9,7 +10,13 @@ def home():
     return "Hello World!"
 
 
-@app.route('/registrar')
-
+@app.route('/registrar', methods=['GET', 'POST'])
 def registrar():
-    return render_template('admin/registrar.html', title="Registrar")
+    form = RegistrationForm(request.form)
+    if request.method == 'POST' and form.validate():
+        #user = User(form.username.data, form.email.data,
+                    #form.password.data)
+        #db_session.add(user)
+        flash('Obrigado por registrar')
+        return redirect(url_for('login'))
+    return render_template('admin/registrar.html', form=form, title='Pagina de registros')
