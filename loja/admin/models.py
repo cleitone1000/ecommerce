@@ -1,4 +1,5 @@
-from loja import db
+from flask import Flask
+from loja import app, db
 
 
 class User(db.Model):
@@ -12,3 +13,6 @@ class User(db.Model):
     def __repr__(self):
         return '<User %r>' % self.username
     
+
+with app.app_context():
+    db.create_all()

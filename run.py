@@ -1,4 +1,4 @@
-from loja import app
+from loja import db, app
 
 
 if __name__ == '__main__':
