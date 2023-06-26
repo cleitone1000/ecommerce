@@ -1,7 +1,7 @@
 from flask import render_template, session, request, redirect, url_for, flash
 
 from loja import app, db, bcrypt
-from .forms import RegistrationForm
+from .forms import RegistrationForm, LoginFormulario
 from .models import User
 import os
 
@@ -27,3 +27,10 @@ def registrar():
         
         return redirect(url_for('home'))
     return render_template('admin/registrar.html', form=form, title='Pagina de registros')
+
+
+
+@app.route('/login', methods=['GET','POST'])
+def login():
+    form=LoginFormulario(request.form)
+    return render_template('admin/login.html', form=form, title='Página Login')
