@@ -7,10 +7,18 @@ import os
 
 
 
+@app.route('/admin')
+def admin():
+    if 'email' not in session:
+        flash(f'Faça o login primeiro', 'danger')
+        return redirect(url_for('login'))
+    else:
+        flash(f'Parabéns por ter logado!')
+        return redirect(url_for('home'))
 
 @app.route('/')
 
-
+@app.route('/home')
 def home():
     return render_template('admin/index.html', title = 'Home')
 
@@ -33,4 +41,13 @@ def registrar():
 @app.route('/login', methods=['GET','POST'])
 def login():
     form=LoginFormulario(request.form)
+    if request.method == 'POST' and form.validate():
+        user = User.query.filter_by(email=form.email.data).first()
+        if user and bcrypt.check_password_hash(user.password, form.password.data):
+            session['email'] = form.email.data
+            flash(f'Olá {form.email.data}! Você está logado', 'sucess')
+            return redirect(request.args.get('next') or url_for('admin'))
+        else:
+            flash('Infelizmente não foi possível entrar no sistema.')
+            return render_template('admin/login.html', form=form, title='ops')
     return render_template('admin/login.html', form=form, title='Página Login')
